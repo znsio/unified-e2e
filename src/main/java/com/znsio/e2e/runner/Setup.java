@@ -792,7 +792,7 @@ public class Setup {
                 platform = Platform.android;
                 inferredTags = providedTags + " and not @wip";
                 launchName += " - Real User Simulation on multiple Androids";
-            } else if (providedTags.contains("multiuser-web-web")) {
+            } else if (providedTags.contains("multiuser-web")) {
                 platform = Platform.web;
                 inferredTags = providedTags + " and not @wip";
                 launchName += " - Real User Simulation on Web";

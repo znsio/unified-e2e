@@ -301,4 +301,12 @@ public class Driver {
         return (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(elementId));
     }
 
+    public List<WebElement> findElementsByAccessibilityId (String locator) {
+        return ((AppiumDriver) driver).findElementsByAccessibilityId(locator);
+    }
+
+    public WebElement waitTillElementIsPresent (By elementId) {
+        return (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(elementId));
+    }
+
 }
