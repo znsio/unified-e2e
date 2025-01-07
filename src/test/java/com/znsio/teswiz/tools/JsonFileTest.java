@@ -2,10 +2,8 @@ package com.znsio.teswiz.tools;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,11 +11,9 @@ class JsonFileTest {
     private static final Logger LOGGER = LogManager.getLogger(JsonFileTest.class.getName());
     private static final String LOG_DIR = "./target/testLogs";
 
-    @BeforeAll
+    @BeforeClass
     public static void setupBefore() {
-        LOGGER.info("Create LOG_DIR: " + LOG_DIR);
-        System.setProperty("LOG_DIR", LOG_DIR);
-        new File(LOG_DIR).mkdirs();
+        LOGGER.info("Using LOG_DIR: " + System.getProperty("LOG_DIR"));
     }
 
     @Test

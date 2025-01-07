@@ -5,8 +5,8 @@ import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.indigo.IndigoGiftVouchersScreen;
 import io.appium.java_client.AppiumDriver;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 
 import java.util.Set;
@@ -39,7 +39,7 @@ public class IndigoGiftVouchersScreenAndroid
 
     @Override
     public IndigoGiftVouchersScreen select(String numberOfGiftVouchersToPurchase,
-                                           String denomination) {
+            String denomination) {
         throw new NotImplementedException(
                 SCREEN_NAME + ":" + new Throwable().getStackTrace()[0].getMethodName() + NOT_YET_IMPLEMENTED);
     }
@@ -52,8 +52,8 @@ public class IndigoGiftVouchersScreenAndroid
 
     @Override
     public IndigoGiftVouchersScreen select(String numberOfGiftVouchersToPurchase,
-                                           String denomination, String forWhom,
-                                           String customMessage) {
+            String denomination, String forWhom,
+            String customMessage) {
         driver.findElement(bySelectDenominationDropdownXpath).click();
         String denominationToSelectXpath = String.format(bySelectValueFromDropdown, denomination);
         driver.waitTillElementIsVisible(By.xpath(denominationToSelectXpath)).click();

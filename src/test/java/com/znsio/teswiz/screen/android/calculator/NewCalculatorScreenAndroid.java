@@ -28,7 +28,7 @@ public class NewCalculatorScreenAndroid
     @Override
     public NewCalculatorScreen pressOperation(String operation) {
         String mappedOperation;
-        switch(operation.toLowerCase()) {
+        switch (operation.toLowerCase()) {
             case "plus":
                 mappedOperation = "op_add";
                 break;

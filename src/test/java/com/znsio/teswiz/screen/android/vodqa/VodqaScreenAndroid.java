@@ -10,18 +10,18 @@ import com.znsio.teswiz.screen.vodqa.VodqaScreen;
 import com.znsio.teswiz.screen.vodqa.WebViewScreen;
 import com.znsio.teswiz.tools.cmd.CommandLineExecutor;
 import io.appium.java_client.AppiumBy;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 public class VodqaScreenAndroid extends VodqaScreen {
+    private static final Logger LOGGER = LogManager.getLogger(VodqaScreenAndroid.class.getName());
     private final Driver driver;
     private final Visual visually;
     private final String SCREEN_NAME = VodqaScreenAndroid.class.getSimpleName();
-    private static final Logger LOGGER = LogManager.getLogger(VodqaScreenAndroid.class.getName());
     private final By byLoginButton = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='login']/android.widget.Button");
     private final By byVerticalSwipeViewGroup = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='verticalSwipe']");
     private final By byCLanguageTextView = AppiumBy.xpath("//android.widget.TextView[@text=' C']");
@@ -44,13 +44,13 @@ public class VodqaScreenAndroid extends VodqaScreen {
     private final By byDoubleTapSuccessfulXpath = AppiumBy.xpath("//android.widget.TextView[@text='Double tap successful!']");
     private final By byPhotoViewElementXpath = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='photoView']");
     private final By byImageElementXpath = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='photo']/android.widget.ImageView");
-    
+
     private final By bySliderSectionXpath = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='slider1']/android.view.ViewGroup");
     private final By byFirstSliderElementId = AppiumBy.accessibilityId("slider");
     private final By bySecondSliderElementId = AppiumBy.accessibilityId("slider1");
     private final By bySliderValueXpath = AppiumBy.xpath("//android.view.ViewGroup/android.widget.TextView[2]");
-  
-  
+
+
     public VodqaScreenAndroid(Driver driver, Visual visually) {
         this.driver = driver;
         this.visually = visually;
@@ -128,7 +128,7 @@ public class VodqaScreenAndroid extends VodqaScreen {
     public VodqaScreen swipeByPassingPercentageAttributes(int atPercentScreenHeight, int fromPercentageWidth, int toPercentScreenWidth) {
         driver.waitTillElementIsPresent(AppiumBy.xpath(String.format(swipeViewXpath, "1")));
         visually.check(SCREEN_NAME, "Carousel Tile before swipe by percentage Attributes",
-                Target.region(AppiumBy.xpath(String.format(swipeViewTileXpath, "1"))));
+                       Target.region(AppiumBy.xpath(String.format(swipeViewTileXpath, "1"))));
         driver.swipeByPassingPercentageAttributes(atPercentScreenHeight, fromPercentageWidth, toPercentScreenWidth);
         return this;
     }
@@ -260,18 +260,18 @@ public class VodqaScreenAndroid extends VodqaScreen {
     public Dimension getImageElementDimension() {
         return driver.waitTillElementIsVisible(byImageElementXpath).getSize();
     }
-    
+
     @Override
     public VodqaScreen multiTouchOnElements() {
         LOGGER.info("Performing multi touch action in Slider Screen");
         driver.waitTillElementIsVisible(bySliderSectionXpath).click();
-        visually.check(SCREEN_NAME,"Slider Section Screen",Target.window());
+        visually.check(SCREEN_NAME, "Slider Section Screen", Target.window());
         WebElement firstSliderElement = driver.findElement(byFirstSliderElementId);
         WebElement secondSliderElement = driver.findElement(bySecondSliderElementId);
         driver.multiTouchOnElements(firstSliderElement, secondSliderElement);
         return this;
     }
-  
+
     @Override
     public float getSliderValue() {
         float actualSliderValue = Float.parseFloat(driver.waitTillElementIsPresent(bySliderValueXpath).getText());

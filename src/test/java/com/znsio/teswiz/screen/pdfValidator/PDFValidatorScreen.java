@@ -36,7 +36,10 @@ public abstract class PDFValidatorScreen {
     }
 
     public abstract TestResults validatePDF();
+
     public abstract TestResults validatePDF(int[] pageNumbers);
+
     public abstract TestResults validatePDF(String pdfFileName);
+
     public abstract TestResults validatePDF(String pdfFileName, int[] pageNumbers);
 }

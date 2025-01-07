@@ -7,8 +7,8 @@ import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.ios.helloWorld.HelloWorldScreenIOS;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class HelloWorldScreen {
     private static final String SCREEN_NAME = HelloWorldScreen.class.getSimpleName();
@@ -20,7 +20,7 @@ public abstract class HelloWorldScreen {
         LOGGER.info(SCREEN_NAME + ": Driver type: " + driver.getType() + ": Platform: " + platform);
         Visual visually = Drivers.getVisualDriverForCurrentUser(Thread.currentThread().getId());
 
-        switch(platform) {
+        switch (platform) {
             case iOS:
                 return new HelloWorldScreenIOS(driver, visually);
         }

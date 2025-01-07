@@ -24,13 +24,13 @@ public class CalculatorScreenAndroid
         visually.checkWindow(SCREEN_NAME, "Calculator launched");
         boolean isUpgradeAppNotificationElement = driver.isElementPresent(
                 By.id("android:id/button1"));
-        if(isUpgradeAppNotificationElement) {
+        if (isUpgradeAppNotificationElement) {
             driver.findElement(By.id("android:id/button1")).click();
             waitFor(1);
         }
         boolean isClingElementPresent = driver.isElementPresent(
                 By.id("com.android2.calculator3:id/cling_dismiss"));
-        if(isClingElementPresent) {
+        if (isClingElementPresent) {
             driver.findElementById("com.android2.calculator3:id/cling_dismiss").click();
             waitFor(1);
         }
@@ -48,7 +48,7 @@ public class CalculatorScreenAndroid
     @Override
     public CalculatorScreen pressOperation(String operation) {
         String mappedOperation;
-        switch(operation.toLowerCase()) {
+        switch (operation.toLowerCase()) {
             case "plus":
                 mappedOperation = "plus";
                 break;

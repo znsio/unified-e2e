@@ -1,15 +1,15 @@
 package com.znsio.teswiz.screen.indigo;
 
 import com.znsio.teswiz.entities.Platform;
+import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Drivers;
 import com.znsio.teswiz.runner.Runner;
-import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.android.indigo.IndigoGiftVouchersScreenAndroid;
 import com.znsio.teswiz.screen.web.indigo.IndigoGiftVouchersScreenWeb;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class IndigoGiftVouchersScreen {
     private static final String SCREEN_NAME = IndigoGiftVouchersScreen.class.getSimpleName();
@@ -21,7 +21,7 @@ public abstract class IndigoGiftVouchersScreen {
         LOGGER.info(SCREEN_NAME + ": Driver type: " + driver.getType() + ": Platform: " + platform);
         Visual visually = Drivers.getVisualDriverForCurrentUser(Thread.currentThread().getId());
 
-        switch(platform) {
+        switch (platform) {
             case android:
                 return new IndigoGiftVouchersScreenAndroid(driver, visually);
             case web:
@@ -32,13 +32,13 @@ public abstract class IndigoGiftVouchersScreen {
     }
 
     public abstract IndigoGiftVouchersScreen select(String numberOfGiftVouchersToPurchase,
-                                                    String denomination);
+            String denomination);
 
     public abstract int getTotalPrice();
 
     public abstract IndigoGiftVouchersScreen select(String numberOfGiftVouchersToPurchase,
-                                                    String denomination, String forWhom,
-                                                    String customMessage);
+            String denomination, String forWhom,
+            String customMessage);
 
     public abstract IndigoGiftVouchersScreen preview();
 }

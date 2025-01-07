@@ -1,14 +1,14 @@
 package com.znsio.teswiz.businessLayer.vodqa;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.vodqa.DragAndDropScreen;
 import com.znsio.teswiz.screen.vodqa.VodqaScreen;
 import com.znsio.teswiz.screen.vodqa.WebViewScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.Dimension;
 
@@ -81,7 +81,7 @@ public class VodqaBL {
     public VodqaBL enterAndVerifyLoginOptionUnderWebViewSection() {
         LOGGER.info("Entering into hacker news under webView section");
         assertThat(VodqaScreen.get().enterIntoNewsWebViewSection()
-                .isUserOnNewsWebViewScreen())
+                           .isUserOnNewsWebViewScreen())
                 .as("User unable to navigate to news webview screen")
                 .isTrue();
 
@@ -95,8 +95,8 @@ public class VodqaBL {
     public VodqaBL enterIntoNativeViewSection() {
         LOGGER.info("Navigating into Native view section");
         assertThat(WebViewScreen.get().navigateToSamplesList()
-                .enterIntoNativeViewSection()
-                .isUserOnNativeViewScreen())
+                           .enterIntoNativeViewSection()
+                           .isUserOnNativeViewScreen())
                 .as("User Unable to navigate to native view section")
                 .isTrue();
         return this;
@@ -110,7 +110,7 @@ public class VodqaBL {
     }
 
     public VodqaBL isElementWithTextVisible(String elementText) {
-        boolean isScrollSuccessful= VodqaScreen.get().isElementWithTextVisible(elementText);
+        boolean isScrollSuccessful = VodqaScreen.get().isElementWithTextVisible(elementText);
         assertThat(isScrollSuccessful).as("Scroll was not successful, text is not visible").isTrue();
         return this;
     }
@@ -133,7 +133,7 @@ public class VodqaBL {
 
     public VodqaBL doubleTapOnAnElement() {
         assertThat(VodqaScreen.get().doubleTapOnElement()
-                .isDoubleTapSuccessful())
+                           .isDoubleTapSuccessful())
                 .as("Double tap on element failed")
                 .isTrue();
         return this;
@@ -162,7 +162,7 @@ public class VodqaBL {
         assertThat(vodqaScreen.pinchAndZoomOutOnAnElement().isPinchAndZoomOutSuccessful(elementDimension)).as("Pinch and Zoom Out on an element failed").isTrue();
         return this;
     }
-    
+
     public VodqaBL performMultiTouchForBothSilders(float sliderValue) {
         VodqaScreen.get().multiTouchOnElements();
         assertThat(VodqaScreen.get().getSliderValue()).as("Multi Touch failed as slider value is not equal").isEqualTo(sliderValue);

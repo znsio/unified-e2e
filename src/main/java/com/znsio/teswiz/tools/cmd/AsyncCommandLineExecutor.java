@@ -1,6 +1,6 @@
 package com.znsio.teswiz.tools.cmd;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.TEST_CONTEXT;
 import com.znsio.teswiz.exceptions.CommandLineExecutorException;
 import com.znsio.teswiz.runner.Runner;
@@ -35,6 +35,7 @@ public class AsyncCommandLineExecutor {
     public AsyncCommandLineExecutor() {
         long threadId = Thread.currentThread().getId();
         this.context = Runner.getTestExecutionContext(threadId);
+        this.context.addTestState(TEST_CONTEXT.CLI_COMMAND_NUMBER, 1);
         String os = Runner.OS_NAME.toLowerCase();
 
         ProcessBuilder processBuilder = os.contains("win")

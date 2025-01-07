@@ -1,12 +1,12 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
 import com.znsio.teswiz.businessLayer.heartbeat.HeartBeatBL;
 import com.znsio.teswiz.businessLayer.theapp.AppBL;
 import com.znsio.teswiz.businessLayer.theapp.ClipboardBL;
 import com.znsio.teswiz.businessLayer.theapp.EchoBL;
 import com.znsio.teswiz.businessLayer.theapp.FileUploadBL;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.entities.TEST_CONTEXT;
@@ -50,7 +50,7 @@ public class TheAppSteps {
 
     @Given("{string} login with invalid credentials - {string}, {string} on {string}")
     public void loginWithInvalidCredentialsOn(String userPersona, String username, String password,
-                                              String onPlatform) {
+            String onPlatform) {
         LOGGER.info(System.out.printf(
                 "LoginWithInvalidCredentials - Persona:'%s', Username: '%s', Password:'%s', " +
                 "Platform: '%s'",
@@ -81,7 +81,7 @@ public class TheAppSteps {
 
     @When("{string} login again with invalid credentials - {string}, {string}")
     public void loginAgainWithInvalidCredentials(String userPersona, String username,
-                                                 String password) {
+            String password) {
         Platform onPlatform = Runner.getPlatformForUser(userPersona);
         LOGGER.info(System.out.printf(
                 "LoginWithInvalidCredentials - Persona:'%s', Username: '%s', Password:'%s', " +
@@ -145,7 +145,7 @@ public class TheAppSteps {
 
     @Then("{string} can login again with invalid credentials - {string}, {string}")
     public void canLoginAgainWithInvalidCredentials(String userPersona, String username,
-                                                    String password) {
+            String password) {
         LOGGER.info(System.out.printf(
                 "'%s' canLoginAgainWithInvalidCredentials - Username: '%s', Password:'%s'",
                 userPersona, username, password));
@@ -155,7 +155,7 @@ public class TheAppSteps {
 
     @And("{string} login to TheApp with invalid credentials - {string}, " + "{string}")
     public void loginToTheAppWithInvalidCredentials(String userPersona, String username,
-                                                    String password) {
+            String password) {
         LOGGER.info("Active thread count: " + Thread.activeCount());
         LOGGER.info(System.out.printf(
                 "'%s' loginToTheAppWithInvalidCredentials - Username: '%s', Password:'%s'",

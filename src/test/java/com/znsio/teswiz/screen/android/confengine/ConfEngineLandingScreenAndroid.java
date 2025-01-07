@@ -4,8 +4,8 @@ import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.confengine.ConfEngineLandingScreen;
 import io.appium.java_client.AppiumDriver;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 
 import java.util.Set;
@@ -28,7 +28,7 @@ public class ConfEngineLandingScreenAndroid
     public ConfEngineLandingScreen getListOfConferences() {
         visually.checkWindow(SCREEN_NAME, "Landing screen");
         Set<String> contextNames = ((AppiumDriver) driver.getInnerDriver()).getWindowHandles();
-        for(String contextName : contextNames) {
+        for (String contextName : contextNames) {
             System.out.println(contextName); //prints out something like NATIVE_APP \n WEBVIEW_1
         }
         ((AppiumDriver) driver.getInnerDriver()).switchTo().window(String.valueOf(contextNames.toArray()[1]));

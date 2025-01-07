@@ -8,8 +8,8 @@ import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.android.jiocinema.JioCinemaScreenAndroid;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class JioCinemaScreen {
     private static final String SCREEN_NAME = JioCinemaScreen.class.getSimpleName();

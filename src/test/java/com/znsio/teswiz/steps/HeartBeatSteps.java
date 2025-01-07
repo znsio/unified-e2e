@@ -1,8 +1,8 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
 import com.znsio.teswiz.businessLayer.heartbeat.HeartBeatBL;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;

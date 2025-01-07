@@ -8,8 +8,8 @@ import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.android.googlesearch.GoogleSearchResultsScreenAndroid;
 import com.znsio.teswiz.screen.web.googlesearch.GoogleSearchResultsScreenWeb;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 

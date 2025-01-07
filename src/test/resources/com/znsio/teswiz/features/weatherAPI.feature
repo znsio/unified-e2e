@@ -17,8 +17,8 @@ Feature: Weather data based on location Coordinates
     Given I send GET request with valid location coordinates <latitude> and <longitude>
     Then wind speed of that location should be in range 0 and 90 kmph
     Examples:
-    | latitude | longitude |  city |
-    | "18.987807" | "72.836447" | Mumbai  |
-    | "28.651952" | "77.231495" | Delhi   |
-    | "22.562627" | "88.363044" | Kolkata |
-    | "13.084622" | "80.248357" | Chennai |
+      | latitude    | longitude   | city    |
+      | "18.987807" | "72.836447" | Mumbai  |
+      | "28.651952" | "77.231495" | Delhi   |
+      | "22.562627" | "88.363044" | Kolkata |
+      | "13.084622" | "80.248357" | Chennai |

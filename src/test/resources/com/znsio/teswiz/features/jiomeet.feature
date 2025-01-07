@@ -51,8 +51,8 @@ Feature: In a meeting scenarios
     Then "Guest-2" should see the chat message on its chat window
 
 #  CONFIG=./configs/jio/jiomeet_local_config.properties TAG="@jiomeet and  @selectNotificationTest" PLATFORM=android ./gradlew run
-    @selectNotificationTest @android
-    Scenario: User should be able to view and open the JioMeet Meeting Notification
-      Given "Host" logs-in and starts an instant meeting in "jiomeetLatest" on "android"
-      When I open the JioMeet meeting notification from notification bar
-      Then I should be able to go back to Meeting
+  @selectNotificationTest @android
+  Scenario: User should be able to view and open the JioMeet Meeting Notification
+    Given "Host" logs-in and starts an instant meeting in "jiomeetLatest" on "android"
+    When I open the JioMeet meeting notification from notification bar
+    Then I should be able to go back to Meeting

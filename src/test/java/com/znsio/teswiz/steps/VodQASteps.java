@@ -1,8 +1,8 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
 import com.znsio.teswiz.businessLayer.vodqa.VodqaBL;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.runner.Drivers;
 import com.znsio.teswiz.runner.Runner;
@@ -10,8 +10,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class VodQASteps {
     private static final Logger LOGGER = LogManager.getLogger(VodQASteps.class.getName());
@@ -118,7 +118,7 @@ public class VodQASteps {
     public void iShouldBeAbleToPinchAndZoomOutOnAnElement() {
         new VodqaBL().pinchAndZoomOutOnAnElement();
     }
-    
+
     @Then("I should be able set both sliders to value {float} by multi touch action")
     public void iShouldBeAbleSetBothSlidersToValueByMultiTouchAction(float setSliderValue) {
         new VodqaBL().performMultiTouchForBothSilders(setSliderValue);

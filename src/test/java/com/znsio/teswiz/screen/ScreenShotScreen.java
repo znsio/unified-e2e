@@ -1,16 +1,16 @@
 package com.znsio.teswiz.screen;
 
 import com.znsio.teswiz.entities.Platform;
+import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Drivers;
 import com.znsio.teswiz.runner.Runner;
-import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.android.ScreenShotScreenAndroid;
 import com.znsio.teswiz.screen.web.ScreenShotScreenWeb;
 import com.znsio.teswiz.screen.windows.ScreenShotScreenWindows;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class ScreenShotScreen {
     private static final String SCREEN_NAME = ScreenShotScreen.class.getSimpleName();
@@ -22,7 +22,7 @@ public abstract class ScreenShotScreen {
         LOGGER.info(SCREEN_NAME + ": Driver type: " + driver.getType() + ": Platform: " + platform);
         Visual visually = Drivers.getVisualDriverForCurrentUser(Thread.currentThread().getId());
 
-        switch(platform) {
+        switch (platform) {
             case android:
                 return new ScreenShotScreenAndroid(driver, visually);
             case web:

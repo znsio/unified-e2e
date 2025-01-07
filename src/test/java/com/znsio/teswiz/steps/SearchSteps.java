@@ -1,13 +1,13 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
 import com.znsio.teswiz.businessLayer.search.SearchBL;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.runner.Runner;
 import io.cucumber.java.en.When;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SearchSteps {
     private static final Logger LOGGER = LogManager.getLogger(SearchSteps.class.getName());

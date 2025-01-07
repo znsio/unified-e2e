@@ -1,12 +1,12 @@
 package com.znsio.teswiz.screen.android.jiomeet;
 
+import com.znsio.teswiz.exceptions.jiomeet.InAMeetingException;
 import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Visual;
-import com.znsio.teswiz.exceptions.jiomeet.InAMeetingException;
 import com.znsio.teswiz.screen.jiomeet.InAMeetingScreen;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -41,7 +41,7 @@ public class InAMeetingScreenAndroid
             enableInMeetingControls("isMeetingStarted");
             driver.waitTillElementIsPresent(byMicStatusId);
             return true;
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -74,7 +74,7 @@ public class InAMeetingScreenAndroid
         enableInMeetingControls("unmute");
         WebElement micStatus = driver.waitTillElementIsPresent(byMicStatusId);
         LOGGER.info("unmute- current mic status: " + micStatus.getText());
-        if(micStatus.getText().equals("Mute")) {
+        if (micStatus.getText().equals("Mute")) {
             throw new InAMeetingException("Mic is already unmuted");
         } else {
             micStatus.click();
@@ -90,7 +90,7 @@ public class InAMeetingScreenAndroid
         enableInMeetingControls("mute");
         WebElement micStatus = driver.waitTillElementIsPresent(byMicStatusId);
         LOGGER.info("mute- current mic status: " + micStatus.getText());
-        if(micStatus.getText().equals("Unmute")) {
+        if (micStatus.getText().equals("Unmute")) {
             throw new InAMeetingException("Mic is already muted");
         } else {
             micStatus.click();
@@ -111,12 +111,12 @@ public class InAMeetingScreenAndroid
                 "enableInMeetingControls: Called from: '%s': headers displayed?: '%s'", calledFrom,
                 isTopHeaderDisplayed));
         int retryAttempt = 0;
-        if(!isTopHeaderDisplayed) {
+        if (!isTopHeaderDisplayed) {
             do {
                 int seconds = 1;
                 LOGGER.info(String.format(
                         "enableInMeetingControls: Called from: '%s', ': headers not displayed. " +
-                                "Wait for '%d' sec and try again",
+                        "Wait for '%d' sec and try again",
                         calledFrom, seconds));
                 waitFor(seconds);
                 retryAttempt++;
@@ -124,10 +124,10 @@ public class InAMeetingScreenAndroid
                 isTopHeaderDisplayed = areInMeetingControlsDisplayed();
                 LOGGER.info(String.format(
                         "enableInMeetingControls: Called from: '%s': retryAttempt: '%d' : are " +
-                                "headers displayed now: '%s'",
+                        "headers displayed now: '%s'",
                         calledFrom, retryAttempt, isTopHeaderDisplayed));
-            } while(!isTopHeaderDisplayed && retryAttempt < 8);
-            if(!isTopHeaderDisplayed) {
+            } while (!isTopHeaderDisplayed && retryAttempt < 8);
+            if (!isTopHeaderDisplayed) {
                 throw new InAMeetingException(
                         "Unable to see In Meeting Controls called from '" + calledFrom + "' in " + retryAttempt + " retry attempts");
             }

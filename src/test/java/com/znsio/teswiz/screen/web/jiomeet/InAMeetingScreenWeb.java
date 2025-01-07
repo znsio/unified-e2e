@@ -1,6 +1,6 @@
 package com.znsio.teswiz.screen.web.jiomeet;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Runner;
@@ -8,8 +8,8 @@ import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.jiomeet.InAMeetingScreen;
 import com.znsio.teswiz.tools.ReportPortalLogger;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -57,12 +57,12 @@ public class InAMeetingScreenWeb
         js.executeScript("arguments[0].click()", infoIcon);
         visually.takeScreenshot(SCREEN_NAME, "getCurrentMeetingDetails");
         String meetingId = (String) js.executeScript("return arguments[0].innerText",
-                driver.waitTillElementIsPresent(byCurrentMeetingNumberXpath));
+                                                     driver.waitTillElementIsPresent(byCurrentMeetingNumberXpath));
         meetingId = meetingId.replaceAll("\\s", "");
         String pin = (String) js.executeScript("return arguments[0].innerText",
-                driver.waitTillElementIsPresent(byCurrentMeetingPinXpath));
-        String invitationLink =  (String) js.executeScript("return arguments[0].innerText",
-                driver.waitTillElementIsPresent(byCurrentMeetingInvitationLinkXpath));
+                                               driver.waitTillElementIsPresent(byCurrentMeetingPinXpath));
+        String invitationLink = (String) js.executeScript("return arguments[0].innerText",
+                                                          driver.waitTillElementIsPresent(byCurrentMeetingInvitationLinkXpath));
         js.executeScript("arguments[0].click()", infoIcon);//to close the meeting info frame
         visually.takeScreenshot(SCREEN_NAME, "After closing meeting info icon");
         LOGGER.info("On Web the meeting id: " + meetingId + " Password: " + pin);

@@ -6,8 +6,8 @@ import com.znsio.teswiz.screen.theapp.AppLaunchScreen;
 import com.znsio.teswiz.screen.theapp.ClipboardDemoScreen;
 import com.znsio.teswiz.screen.theapp.EchoScreen;
 import com.znsio.teswiz.screen.theapp.LoginScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 
 public class AppLaunchScreenWeb

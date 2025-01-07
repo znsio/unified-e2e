@@ -13,10 +13,10 @@ import static com.znsio.teswiz.tools.Wait.waitFor;
 
 public class DuckDuckGoScreenAndroid
         extends DuckDuckGoScreen {
-    private final Driver driver;
-    private final Visual visually;
     private static final String SCREEN_NAME = DuckDuckGoScreenAndroid.class.getSimpleName();
     private static final Logger LOGGER = LogManager.getLogger(SCREEN_NAME);
+    private final Driver driver;
+    private final Visual visually;
     private final By byPrimaryCtaId = AppiumBy.id("com.duckduckgo.mobile.android.debug:id/primaryCta");
     private final By byCancelChangingDefaultBrowserId = AppiumBy.id("android:id/button2");
     private By byGetDefaultTextFromWebViewId;

@@ -1,11 +1,8 @@
 package com.znsio.teswiz.runner;
 
-import com.appium.capabilities.DriverSession;
-import com.appium.filelocations.FileLocations;
-import com.appium.manager.AppiumDeviceManager;
-import com.appium.plugin.PluginClI;
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
+import com.znsio.teswiz.entities.FileLocations;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.entities.TEST_CONTEXT;
 import com.znsio.teswiz.exceptions.EnvironmentSetupException;
@@ -31,19 +28,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-import static com.cucumber.listener.CucumberScenarioListener.createFile;
+import static com.znsio.teswiz.listener.CucumberScenarioListener.createFile;
 import static com.znsio.teswiz.runner.Runner.DEFAULT;
 import static com.znsio.teswiz.runner.Runner.getCloudName;
 import static com.znsio.teswiz.runner.Setup.CAPS;
 
-class AppiumDriverManager {
+public class AppiumDriverManager {
     private static final int MAX_NUMBER_OF_APPIUM_DRIVERS = Runner.getMaxNumberOfAppiumDrivers();
-    private static final List<DriverSession> additionalDevices = new ArrayList<>();
+    private static final List additionalDevices = new ArrayList<>();
     private static final Logger LOGGER = LogManager.getLogger(AppiumDriverManager.class.getName());
     private static final String CAPABILITIES = "CAPABILITIES: ";
     private static int numberOfAppiumDriversUsed = 0;
 
-    private AppiumDriverManager() {
+    public AppiumDriverManager() {
         LOGGER.debug("AppiumDriverManager - private constructor");
     }
 
@@ -92,7 +89,8 @@ class AppiumDriverManager {
     private static Driver createNewAppiumDriver(String userPersona, Platform forPlatform, TestExecutionContext context, String appName, File capabilityFileToUseForDriverCreation) {
         Driver currentDriver;
         try {
-            AppiumDriver appiumDriver = new com.appium.manager.AppiumDriverManager().startAppiumDriverInstance(userPersona, capabilityFileToUseForDriverCreation.getAbsolutePath());
+            // TODO
+            AppiumDriver appiumDriver = TODO_createAppiumDriver(userPersona, capabilityFileToUseForDriverCreation);
 
 
             String scenarioDirectory = context.getTestStateAsString("scenarioDirectory");
@@ -112,22 +110,27 @@ class AppiumDriverManager {
         return currentDriver;
     }
 
+    private static AppiumDriver TODO_createAppiumDriver(String userPersona, File capabilityFileToUseForDriverCreation) {
+//        return new com.appium.manager.AppiumDriverManager().startAppiumDriverInstance(userPersona, capabilityFileToUseForDriverCreation.getAbsolutePath());
+        return null;
+    }
+
     private static String startDataCapture(Integer scenarioRunCount, String deviceLogFileDirectory) {
         String fileName = String.format("/run-%s", scenarioRunCount);
-        if (AppiumDeviceManager.getAppiumDevice().getPlatformName().equalsIgnoreCase("android")) {
-            try {
-                fileName = String.format("/%s-run-%s", AppiumDeviceManager.getAppiumDevice().getUdid(), scenarioRunCount);
-                File logFile = createFile(deviceLogFileDirectory + FileLocations.DEVICE_LOGS_DIRECTORY, fileName);
-                fileName = logFile.getAbsolutePath();
-                LOGGER.debug("Capturing device logs here: " + fileName);
-                PrintStream logFileStream = null;
-                logFileStream = new PrintStream(logFile);
-                LogEntries logcatOutput = com.appium.manager.AppiumDriverManager.getDriver().manage().logs().get("logcat");
-                StreamSupport.stream(logcatOutput.spliterator(), false).forEach(logFileStream::println);
-            } catch (FileNotFoundException e) {
-                LOGGER.warn("ERROR in getting logcat. Skipping logcat capture");
-            }
-        }
+//        if (AppiumDeviceManager.getAppiumDevice().getPlatformName().equalsIgnoreCase("android")) {
+//            try {
+//                fileName = String.format("/%s-run-%s", AppiumDeviceManager.getAppiumDevice().getUdid(), scenarioRunCount);
+//                File logFile = createFile(deviceLogFileDirectory + FileLocations.DEVICE_LOGS_DIRECTORY, fileName);
+//                fileName = logFile.getAbsolutePath();
+//                LOGGER.debug("Capturing device logs here: " + fileName);
+//                PrintStream logFileStream = null;
+//                logFileStream = new PrintStream(logFile);
+//                LogEntries logcatOutput = com.appium.manager.AppiumDriverManager.getDriver().manage().logs().get("logcat");
+//                StreamSupport.stream(logcatOutput.spliterator(), false).forEach(logFileStream::println);
+//            } catch (FileNotFoundException e) {
+//                LOGGER.warn("ERROR in getting logcat. Skipping logcat capture");
+//            }
+//        }
         return fileName;
     }
 
@@ -298,9 +301,9 @@ class AppiumDriverManager {
     }
 
     static void freeDevices() {
-        for (DriverSession additionalDevice : additionalDevices) {
-            LOGGER.info(String.format("Freeing device: %s", additionalDevice.getDeviceName()));
-        }
+//        for (DriverSession additionalDevice : additionalDevices) {
+//            LOGGER.info(String.format("Freeing device: %s", additionalDevice.getDeviceName()));
+//        }
         additionalDevices.clear();
     }
 

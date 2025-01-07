@@ -1,11 +1,11 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
 import com.znsio.teswiz.businessLayer.jiomeet.AuthBL;
 import com.znsio.teswiz.businessLayer.jiomeet.InAMeetingBL;
 import com.znsio.teswiz.businessLayer.jiomeet.JoinAMeetingBL;
 import com.znsio.teswiz.businessLayer.jiomeet.LandingBL;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.exceptions.InvalidTestDataException;
@@ -75,7 +75,7 @@ public class JioMeetSteps {
 
     @Given("{string} logs-in and starts an instant meeting in {string} on {string}")
     public void logsInAndStartsAnInstantMeetingInOn(String userPersona, String appName,
-                                                    String platform) {
+            String platform) {
         appName = appName.toLowerCase(Locale.ROOT);
         Platform onPlatform = Platform.valueOf(platform);
         LOGGER.info(System.out.printf("startOn - Persona:'%s', AppName: '%s', Platform: '%s'",
@@ -93,7 +93,7 @@ public class JioMeetSteps {
         LOGGER.info(System.out.printf("startOn - Persona:'%s', AppName: '%s', Platform: '%s'",
                                       userPersona, appName, onPlatform.name()));
         context.addTestState(userPersona, userPersona);
-        switch(onPlatform) {
+        switch (onPlatform) {
             case android:
             case iOS:
             case windows:

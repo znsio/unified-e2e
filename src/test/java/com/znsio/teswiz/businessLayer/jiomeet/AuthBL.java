@@ -1,12 +1,12 @@
 package com.znsio.teswiz.businessLayer.jiomeet;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
-import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
+import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.jiomeet.SignInScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 
 import java.util.Map;
@@ -48,12 +48,12 @@ public class AuthBL {
         String lastName = String.valueOf(userDetails.get("lastName"));
 
         String expectedWelcomeMessageAndroid = "Hello " + firstName + " \n" + "what would you " +
-                "like to do?";
+                                               "like to do?";
         String expectedWelcomeMessageWeb = "Hello " + firstName + " " + lastName + ", what would " +
-                "you like to do?";
+                                           "you like to do?";
         String expectedWelcomeMessage =
                 currentPlatform.equals(Platform.web) || currentPlatform.equals(Platform.electron) ? expectedWelcomeMessageWeb
-                        : expectedWelcomeMessageAndroid;
+                                                                                                  : expectedWelcomeMessageAndroid;
 
         String signedInWelcomeMessage = SignInScreen.get().signIn(username, password)
                 .getSignedInWelcomeMessage();

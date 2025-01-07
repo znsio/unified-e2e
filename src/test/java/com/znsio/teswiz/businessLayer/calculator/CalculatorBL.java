@@ -1,9 +1,9 @@
 package com.znsio.teswiz.businessLayer.calculator;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
-import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
+import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.ScreenShotScreen;
 import com.znsio.teswiz.screen.calculator.CalculatorScreen;
 import com.znsio.teswiz.screen.calculator.NewCalculatorScreen;
@@ -50,6 +50,7 @@ public class CalculatorBL {
         CalculatorScreen.get().selectNumber(number);
         return this;
     }
+
     public CalculatorBL selectNumberInNewCalculator(String number) {
         NewCalculatorScreen.get().selectNumber(number);
         return this;
@@ -67,7 +68,7 @@ public class CalculatorBL {
 
     public CalculatorBL switchBackToCalculator() {
         LOGGER.info("Restart calculator");
-        String[] packageName = new String[] {"adb shell am start com.android2.calculator3/com.android2.calculator3.Calculator"};
+        String[] packageName = new String[]{"adb shell am start com.android2.calculator3/com.android2.calculator3.Calculator"};
         CommandLineExecutor.execCommand(packageName);
         ScreenShotScreen.get().takeScreenshot();
         return this;

@@ -1,14 +1,14 @@
 package com.znsio.teswiz.businessLayer.ajio;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.ajio.CartScreen;
 import com.znsio.teswiz.screen.ajio.ProductScreen;
 import com.znsio.teswiz.screen.ajio.SearchScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,8 +39,8 @@ public class ProductBL {
 
     public ProductBL selectTheFirstResultFromList() {
         assertThat(SearchScreen.get()
-                .selectProduct()
-                .isProductDetailsLoaded())
+                           .selectProduct()
+                           .isProductDetailsLoaded())
                 .as("Product Details is not loaded")
                 .isTrue();
         return this;

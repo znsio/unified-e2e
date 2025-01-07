@@ -23,6 +23,7 @@ import java.nio.file.StandardCopyOption;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -78,7 +79,7 @@ class DeviceSetup {
         return newFileName;
     }
 
-    static ArrayList<String> setupAndroidExecution() {
+    static Collection<String> setupAndroidExecution() {
         ArrayList<String> androidCukeArgs = new ArrayList<>();
         if (Setup.getPlatform().equals(Platform.android)) {
             verifyAppExistsAtMentionedPath();
@@ -88,12 +89,6 @@ class DeviceSetup {
             } else {
                 LocalDevicesSetup.setupLocalExecution();
             }
-            androidCukeArgs.add("--threads");
-            androidCukeArgs.add(Setup.getIntegerValueAsStringFromConfigs(PARALLEL));
-            androidCukeArgs.add(PLUGIN);
-            androidCukeArgs.add(CUCUMBER_SCENARIO_LISTENER);
-            androidCukeArgs.add(PLUGIN);
-            androidCukeArgs.add(CUCUMBER_SCENARIO_REPORTER_LISTENER);
         }
         return androidCukeArgs;
     }
@@ -333,15 +328,11 @@ class DeviceSetup {
                         "device-farm", "cloud", "apiUrl"}, Setup.getLoadedCapabilities());
     }
 
-    static ArrayList<String> setupWindowsExecution() {
+    static Collection<String> setupWindowsExecution() {
         ArrayList<String> windowsCukeArgs = new ArrayList<>();
         if (Setup.getPlatform().equals(Platform.windows)) {
             verifyAppExistsAtMentionedPath();
             fetchWindowsAppVersion();
-            windowsCukeArgs.add(PLUGIN);
-            windowsCukeArgs.add(CUCUMBER_SCENARIO_LISTENER);
-            windowsCukeArgs.add(PLUGIN);
-            windowsCukeArgs.add(CUCUMBER_SCENARIO_REPORTER_LISTENER);
             Setup.addToConfigs(EXECUTED_ON, "Local Desktop Apps");
         }
         return windowsCukeArgs;
@@ -383,7 +374,7 @@ class DeviceSetup {
         }
     }
 
-    static ArrayList<String> setupIOSExecution()  {
+    static Collection<String> setupIOSExecution()  {
         ArrayList<String> iOSCukeArgs = new ArrayList<>();
         if (Setup.getPlatform().equals(Platform.iOS)) {
             verifyAppExistsAtMentionedPath();
@@ -394,14 +385,7 @@ class DeviceSetup {
             } else {
                 LocalDevicesSetup.setupLocalIOSExecution();
             }
-            iOSCukeArgs.add("--threads");
-            iOSCukeArgs.add(Setup.getIntegerValueAsStringFromConfigs(PARALLEL));
-            iOSCukeArgs.add(PLUGIN);
-            iOSCukeArgs.add(CUCUMBER_SCENARIO_LISTENER);
-            iOSCukeArgs.add(PLUGIN);
-            iOSCukeArgs.add(CUCUMBER_SCENARIO_REPORTER_LISTENER);
         }
         return iOSCukeArgs;
     }
-
 }

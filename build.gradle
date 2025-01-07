@@ -1,5 +1,6 @@
-import java.text.SimpleDateFormat
 import org.codehaus.groovy.runtime.GStringImpl
+
+import java.text.SimpleDateFormat
 
 buildscript {
     ext {
@@ -31,20 +32,17 @@ plugins {
     id "org.sonarqube" version "6.0.1.5171"
     id "java"
     id "idea"
-    id "com.github.johnrengelman.shadow" version '8.1.1'
+    id "com.gradleup.shadow" version '8.3.5'
     id "maven-publish"
     id "io.freefair.aspectj.post-compile-weaving" version "8.11"
 }
 
 group = 'com.github.znsio'
-version '1.0.12'
+version = '1.0.13-noATD'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
 }
 
 repositories {
@@ -54,7 +52,7 @@ repositories {
     }
     mavenCentral()
     maven {
-        url 'https://jitpack.io'
+        url = 'https://jitpack.io'
     }
 }
 
@@ -139,31 +137,13 @@ task downloadDependencies {
     doLast {
         println "Downloading required dependencies..."
         def dependencies = [
-//                [
-//                        name  : "teswiz",
-//                        type  : "github",
-//                        params: [
-//                                repoUrl: "https://api.github.com/repos/znsio/teswiz/releases/latest",
-//                                version: "$project.teswizVersion"
-//                        ]
-//                ],
-                [
-                        name  : "AppiumTestDistribution",
-                        type  : "jitpack",
-                        params: [
-                                group   : "com.github.AppiumTestDistribution",
-                                artifact: "AppiumTestDistribution",
-                                version : "$project.atdVersion",
-                                fileNameSuffix: "-jar-with-dependencies"
-                        ]
-                ],
                 [
                         name  : "jadb",
                         type  : "jitpack",
                         params: [
-                                group   : "com.github.vidstige",
-                                artifact: "jadb",
-                                version : "$project.jadbVersion",
+                                group         : "com.github.vidstige",
+                                artifact      : "jadb",
+                                version       : "$project.jadbVersion",
                                 fileNameSuffix: ""
                         ]
                 ]
@@ -187,40 +167,73 @@ tasks.compileJava {
 }
 
 dependencies {
+    // Local JAR dependencies
     implementation fileTree(dir: "$project.projectDir/libs", include: ['*.jar'])
-    implementation files(layout.buildDirectory.files("/classes/main"))
-    implementation files(layout.buildDirectory.files("/classes/test"))
-    implementation ("com.github.AppiumTestDistribution:AppiumTestDistribution:$project.atdVersion") {
-        exclude group: 'io.appium', module: 'java-client'
-    }
-    implementation "com.github.vidstige:jadb:$project.jadbVersion"
+
+    // Build-specific directories
+    implementation files(layout.buildDirectory.dir("classes/main"))
+    implementation files(layout.buildDirectory.dir("classes/test"))
+
+    // Logging
+    implementation "org.apache.logging.log4j:log4j-api:2.24.3"
+    implementation "org.apache.logging.log4j:log4j-core:2.24.3"
+//    implementation "org.apache.logging.log4j:log4j-1.2-api:2.24.3"
+
+    // JSON and YAML processing
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$project.fasterxmlJacksonVersion"
-    implementation "com.konghq:unirest-java:$project.unirestVersion"
+//    implementation "org.yaml:snakeyaml:$project.snakeyamlVersion"
+    implementation "com.flipkart.zjsonpatch:zjsonpatch:$project.jsonDiffVersion"
+
+    // Assertions and testing
     implementation "org.assertj:assertj-core:$project.assertJVersion"
+//    implementation "org.junit.jupiter:junit-jupiter:$project.junitVersion"
+//    implementation "org.testng:testng:7.10.2"
+    implementation "io.cucumber:cucumber-java:7.20.1"
+    implementation "io.cucumber:cucumber-testng:7.20.1"
+
+    // Unirest for API testing
+    implementation "com.konghq:unirest-java:$project.unirestVersion"
+
+    // Appium and BrowserStack
+//    implementation "io.appium:java-client:9.3.0"
+    implementation "com.browserstack:browserstack-local-java:$project.browserStackLocalVersion"
+
+    // Applitools for visual testing
+    implementation "com.applitools:eyes-images-java5:$project.applitoolsImagesVersion"
+    implementation "com.applitools:eyes-appium-java5:$project.applitoolsAppiumVersion"
+
+    // Aspect-Oriented Programming (AOP)
+    implementation "org.aspectj:aspectjrt:$project.aspectJVersion"
+
+    // Specmatic and JSON Schema validation
+    implementation "in.specmatic:specmatic-core:${project.specmaticVersion}"
+    implementation "org.everit.json:org.everit.json.schema:1.5.1"
+    implementation 'com.jayway.jsonpath:json-path:2.9.0'
+
+    // Utility libraries
     implementation "org.apache.commons:commons-lang3:$project.commonsLang3Version"
     implementation "org.apache.commons:commons-rng-simple:$project.commonsRngSimpleVersion"
     implementation "org.jetbrains:annotations:$project.jetbrainsAnnotationsVersion"
-    implementation "org.junit.jupiter:junit-jupiter:$project.junitVersion"
     implementation "joda-time:joda-time:$project.jodaTimeVersion"
-    implementation "com.browserstack:browserstack-local-java:$project.browserStackLocalVersion"
-    implementation "com.applitools:eyes-images-java5:$project.applitoolsImagesVersion"
-    implementation("com.applitools:eyes-appium-java5:$project.applitoolsAppiumVersion") {
-//        exclude group: 'io.appium', module: 'java-client'
-    }
-    implementation "net.masterthought:cucumber-reporting:$masterThoughtVersion"
-    implementation "org.aspectj:aspectjrt:$project.aspectJVersion"
-    implementation "in.specmatic:specmatic-core:${project.specmaticVersion}"
     implementation "io.github.bonigarcia:webdrivermanager:$project.webDriverManagerVersion"
-    implementation "org.yaml:snakeyaml:$project.snakeyamlVersion"
-    implementation "com.flipkart.zjsonpatch:zjsonpatch:$project.jsonDiffVersion"
+
+    // Reporting
+    implementation "net.masterthought:cucumber-reporting:$masterThoughtVersion"
+    implementation 'com.epam.reportportal:agent-java-cucumber6:5.3.4'
+
+    // PDF handling
     implementation "org.apache.pdfbox:pdfbox:$project.pdfBoxVersion"
+
+    // Lombok
+    implementation 'org.projectlombok:lombok:1.18.36'
 }
+
 
 shadowJar {
     archiveBaseName.set("$project.name")
     archiveClassifier.set('')
     archiveVersion.set("$project.version")
-    zip64 true
+    zip64 = true
     manifest {
         attributes "Multi-Release": true
         attributes "Main-Class": "com.znsio.e2e.runner.Runner"
@@ -360,8 +373,17 @@ tasks.register('run', JavaExec) {
 }
 
 test {
-    useJUnitPlatform()
+    doFirst {
+        println "Using LOG_DIR for tests: ${project.logDir}"
+        def logDir = new File("${project.logDir}")
+        systemProperty "LOG_DIR", "${project.logDir}"
 
+        if (!logDir.exists()) {
+            logDir.mkdirs()
+            println "Created log directory at: ${logDir.absolutePath}"
+        }
+    }
+    useTestNG()
     outputs.upToDateWhen { false }
 
     testLogging {
@@ -379,7 +401,6 @@ test {
     if (System.getProperty('debug', 'false') == 'true') {
         jvmArgs '-Xdebug', '-agentlib:jdwp=transport=dt_socket,server=n,address=192.168.29.248:9009,suspend=y'
     }
-    println "Using LOG_DIR: ${project.logDir}"
     reports {
         html.required.set(true)
         junitXml.required.set(true)
@@ -389,7 +410,7 @@ test {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs += ['--release', '17']
+    options.compilerArgs += ['--release', '17', '-Xlint:deprecation']
 }
 
 tasks.withType(JavaExec).configureEach {

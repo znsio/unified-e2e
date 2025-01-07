@@ -1,18 +1,18 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
 import com.znsio.teswiz.businessLayer.calculator.CalculatorBL;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
-import com.znsio.teswiz.runner.Runner;
-import com.znsio.teswiz.runner.Drivers;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
+import com.znsio.teswiz.runner.Drivers;
+import com.znsio.teswiz.runner.Runner;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static com.znsio.teswiz.tools.Wait.waitFor;
 
@@ -29,6 +29,7 @@ public class CalculatorSteps {
     public void iSelect(String number) {
         new CalculatorBL(SAMPLE_TEST_CONTEXT.ME, Runner.getPlatform()).selectNumber(number);
     }
+
     @Given("I select {string} in the new calculator")
     public void iSelectInTheNewCalculator(String number) {
         new CalculatorBL(SAMPLE_TEST_CONTEXT.ME, Runner.getPlatform()).selectNumberInNewCalculator(number);
@@ -74,7 +75,7 @@ public class CalculatorSteps {
     public void press(String userPersona, String action) {
         Platform onPlatform = Runner.getPlatformForUser(userPersona);
         new CalculatorBL(userPersona, onPlatform).pressOperation(action);
-        if(action.equalsIgnoreCase("equals")) {
+        if (action.equalsIgnoreCase("equals")) {
             waitFor(10);
         }
     }

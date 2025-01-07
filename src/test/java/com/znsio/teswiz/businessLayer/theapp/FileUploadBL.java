@@ -1,12 +1,12 @@
 package com.znsio.teswiz.businessLayer.theapp;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
-import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
+import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.theapp.FileUploadScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 
 import java.util.Map;
@@ -49,7 +49,7 @@ public class FileUploadBL {
 
     public FileUploadBL verifyFileUpload() {
         assertThat(FileUploadScreen.get().getFileUploadText()).as("File upload validation")
-                                                              .contains("File Uploaded!");
+                .contains("File Uploaded!");
         return this;
     }
 

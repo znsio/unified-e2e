@@ -1,15 +1,15 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
 import com.znsio.teswiz.businessLayer.indigo.GiftVoucherBL;
 import com.znsio.teswiz.businessLayer.indigo.IndigoBL;
-import com.znsio.teswiz.runner.Runner;
-import com.znsio.teswiz.runner.Drivers;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
+import com.znsio.teswiz.runner.Drivers;
+import com.znsio.teswiz.runner.Runner;
 import io.cucumber.java.en.Given;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class IndigoSteps {
     private static final Logger LOGGER = LogManager.getLogger(IndigoSteps.class.getName());
@@ -22,7 +22,7 @@ public class IndigoSteps {
 
     @Given("I search for a {string} ticket from {string} to {string} for {string} adult passenger")
     public void iSearchForATicketFromToForPassenger(String journeyType, String from,
-                                                    String destination, String numberOfAdults) {
+            String destination, String numberOfAdults) {
         LOGGER.info(System.out.printf("iSearchForATicketFromToForPassenger - Persona:'%s'",
                                       SAMPLE_TEST_CONTEXT.ME));
         Drivers.createDriverFor(SAMPLE_TEST_CONTEXT.ME, Runner.getPlatform(), context);
@@ -33,7 +33,7 @@ public class IndigoSteps {
 
     @Given("I want to purchase {string} gift voucher of INR {string}")
     public void iWantToPurchaseGiftVoucherOfINR(String numberOfGiftVouchersToPurchase,
-                                                String denomination) {
+            String denomination) {
         LOGGER.info(System.out.printf("iWantToPurchaseGiftVoucherOfINR - Persona:'%s'",
                                       SAMPLE_TEST_CONTEXT.ME));
         Drivers.createDriverFor(SAMPLE_TEST_CONTEXT.ME, Runner.getPlatform(), context);

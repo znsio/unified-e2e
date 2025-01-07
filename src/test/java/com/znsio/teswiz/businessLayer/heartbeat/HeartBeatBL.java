@@ -1,6 +1,6 @@
 package com.znsio.teswiz.businessLayer.heartbeat;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.exceptions.InvalidTestDataException;
 import com.znsio.teswiz.runner.Runner;
@@ -26,7 +26,7 @@ public class HeartBeatBL {
     public HeartBeatBL startHeatBeat(String userPersona) {
         LOGGER.info("Active thread count: " + Thread.activeCount());
         HashMap<String, HeartBeat> heartbeatMap = getHeartbeatHashMap();
-        if(null != heartbeatMap.get(userPersona.toLowerCase())) {
+        if (null != heartbeatMap.get(userPersona.toLowerCase())) {
             throw new InvalidTestDataException(String.format("HeartBeat already started for userPersona: '%s'", userPersona));
         }
         HeartBeat currentUserHeartBeat = new HeartBeat(userPersona, "https://api.open-meteo.com/v1/forecast", 5);
@@ -44,7 +44,7 @@ public class HeartBeatBL {
 
     private HashMap<String, HeartBeat> getHeartbeatHashMap() {
         HashMap<String, HeartBeat> heartbeatMap = null;
-        if(null == context.getTestState(SAMPLE_TEST_CONTEXT.HEARTBEAT_MAP)) {
+        if (null == context.getTestState(SAMPLE_TEST_CONTEXT.HEARTBEAT_MAP)) {
             LOGGER.info("Initialising HeartBeat hashmap");
             heartbeatMap = new HashMap<>();
             context.addTestState(SAMPLE_TEST_CONTEXT.HEARTBEAT_MAP, heartbeatMap);
@@ -59,7 +59,7 @@ public class HeartBeatBL {
         LOGGER.info("Active thread count: " + Thread.activeCount());
         HashMap<String, HeartBeat> heartbeatMap = getHeartbeatHashMap();
         HeartBeat heartBeat = heartbeatMap.get(userPersona.toLowerCase());
-        if(null == heartBeat) {
+        if (null == heartBeat) {
             throw new InvalidTestDataException(String.format("HeartBeat not running for userPersona: '%s'", userPersona));
         }
         int heartBeatCounter = heartBeat.getHeartBeatCounter();

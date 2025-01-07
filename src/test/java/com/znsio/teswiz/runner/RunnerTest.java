@@ -1,7 +1,7 @@
 package com.znsio.teswiz.runner;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
 class RunnerTest {
 
@@ -11,6 +11,7 @@ class RunnerTest {
         byte status = Runner.getStatus(false, 10, 10, 100, 0);
         Assertions.assertThat(status).isEqualTo((byte) 0);
     }
+
     @Test
     void getStatusForPassingSuiteWith_FailedScenarios_SomePassedScenarios() {
         byte status = Runner.getStatus(false, 10, 10, 100, 10);
@@ -28,6 +29,7 @@ class RunnerTest {
         byte status = Runner.getStatus(false, 10, 10, 0, 0);
         Assertions.assertThat(status).isEqualTo((byte) 0);
     }
+
     @Test
     void getStatusForPassingSuiteWith_FailedScenarios_NoPassedScenarios() {
         byte status = Runner.getStatus(false, 10, 10, 0, 10);
@@ -46,6 +48,7 @@ class RunnerTest {
         byte status = Runner.getStatus(true, 10, 10, 0, 100);
         Assertions.assertThat(status).isEqualTo((byte) 0);
     }
+
     @Test
     void getStatusForFailingSuiteWith_PassedScenarios_SomeFailedScenarios() {
         byte status = Runner.getStatus(true, 10, 10, 10, 100);
@@ -63,6 +66,7 @@ class RunnerTest {
         byte status = Runner.getStatus(true, 10, 10, 0, 0);
         Assertions.assertThat(status).isEqualTo((byte) 0);
     }
+
     @Test
     void getStatusForFailingSuiteWith_PassedScenarios_NoFailedScenarios() {
         byte status = Runner.getStatus(true, 10, 10, 10, 0);

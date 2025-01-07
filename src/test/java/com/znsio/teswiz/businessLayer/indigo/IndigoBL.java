@@ -1,12 +1,12 @@
 package com.znsio.teswiz.businessLayer.indigo;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
-import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
+import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.indigo.IndigoHomeScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 
 public class IndigoBL {
@@ -34,10 +34,10 @@ public class IndigoBL {
     }
 
     public FlightResultsBL searchForTicket(String journeyType, String from, String destination,
-                                           String numberOfAdults) {
+            String numberOfAdults) {
         IndigoHomeScreen.get().selectJourneyType(journeyType)
-                        .selectNumberOfAdultPassengers(Integer.parseInt(numberOfAdults))
-                        .selectFrom(from).selectTo(destination).searchFlightOptions();
+                .selectNumberOfAdultPassengers(Integer.parseInt(numberOfAdults))
+                .selectFrom(from).selectTo(destination).searchFlightOptions();
         return new FlightResultsBL();
     }
 }

@@ -1,15 +1,15 @@
 package com.znsio.teswiz.businessLayer.theapp;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
-import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
+import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.ScreenShotScreen;
 import com.znsio.teswiz.screen.theapp.AppLaunchScreen;
 import com.znsio.teswiz.screen.theapp.LoginScreen;
 import com.znsio.teswiz.tools.cmd.CommandLineExecutor;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 
 public class AppBL {
@@ -66,7 +66,7 @@ public class AppBL {
     public AppBL stopTheAppAndLaunchItAgain() {
         forceStopTheApp();
         LOGGER.info("Start theapp");
-        String[] startTheApp = new String[] {"adb shell am start com.appiumpro.the_app/com.appiumpro.the_app.MainActivity"};
+        String[] startTheApp = new String[]{"adb shell am start com.appiumpro.the_app/com.appiumpro.the_app.MainActivity"};
         CommandLineExecutor.execCommand(startTheApp);
         ScreenShotScreen.get().takeScreenshot();
         return this;
@@ -74,7 +74,7 @@ public class AppBL {
 
     public AppBL forceStopTheApp() {
         LOGGER.info("ForceStop TheApp");
-        String[] forceStopTheApp = new String[] {"adb shell am force-stop com.appiumpro.the_app"};
+        String[] forceStopTheApp = new String[]{"adb shell am force-stop com.appiumpro.the_app"};
         CommandLineExecutor.execCommand(forceStopTheApp);
         return this;
     }

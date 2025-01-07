@@ -1,12 +1,12 @@
 package com.znsio.teswiz.businessLayer.jiomeet;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
-import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
+import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.jiomeet.SignInScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,9 +38,9 @@ public class JoinAMeetingBL {
     public InAMeetingBL joinMeeting(String meetingId, String meetingPassword) {
         boolean hasMeetingStarted = SignInScreen.get().joinAMeeting(meetingId, meetingPassword,
                                                                     currentUserPersona)
-                                                .isMeetingStarted();
+                .isMeetingStarted();
         assertThat(hasMeetingStarted).as(currentUserPersona + " not yet joined the meeting")
-                                     .isTrue();
+                .isTrue();
         return new InAMeetingBL();
     }
 }

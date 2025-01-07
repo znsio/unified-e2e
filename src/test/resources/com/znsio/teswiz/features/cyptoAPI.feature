@@ -7,11 +7,11 @@ Feature: Crypto-Currency data change
     Given I send GET request for crypto <symbol>
     Then price change should be less than <maxPriceChange>
     Examples:
-    | symbol    | maxPriceChange |
-    | "LTCUSDT" |       75       |
-    | "ETHUSDT" |       200      |
-    | "BNBUSDT" |       55       |
-    | "XRPUSDT" |       80       |
+      | symbol    | maxPriceChange |
+      | "LTCUSDT" | 75             |
+      | "ETHUSDT" | 200            |
+      | "BNBUSDT" | 55             |
+      | "XRPUSDT" | 80             |
 
   @priceChangePercentage
   Scenario: Validate price change percentage for BTC

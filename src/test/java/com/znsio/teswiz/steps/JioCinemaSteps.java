@@ -1,8 +1,8 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
 import com.znsio.teswiz.businessLayer.jiocinema.JioCinemaBL;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Direction;
 import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.runner.Drivers;
@@ -10,8 +10,8 @@ import com.znsio.teswiz.runner.Runner;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class JioCinemaSteps {
     private static final Logger LOGGER = LogManager.getLogger(JioCinemaSteps.class.getName());
@@ -46,6 +46,6 @@ public class JioCinemaSteps {
     @When("I swipe {string} trending no {int} on trending in india section")
     public void iSwipeTrendingNoOnTrendingInIndiaSection(String direction, int movieNumberOnScreen) {
         new JioCinemaBL(SAMPLE_TEST_CONTEXT.ME, Runner.getPlatform())
-                .swipeMovieTrendingInIndiaSection(Direction.valueOf(direction.toUpperCase()),movieNumberOnScreen);
+                .swipeMovieTrendingInIndiaSection(Direction.valueOf(direction.toUpperCase()), movieNumberOnScreen);
     }
 }

@@ -1,6 +1,6 @@
 package com.znsio.teswiz.runner;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.entities.TEST_CONTEXT;
 import com.znsio.teswiz.exceptions.EnvironmentSetupException;
@@ -49,9 +49,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
-import static com.appium.utils.OverriddenVariable.getOverriddenStringValue;
 import static com.znsio.teswiz.runner.Runner.DEFAULT;
 import static com.znsio.teswiz.runner.Setup.CAPS;
+import static com.znsio.teswiz.tools.OverriddenVariable.getOverriddenStringValue;
 
 class BrowserDriverManager {
     private static final Logger LOGGER = LogManager.getLogger(BrowserDriverManager.class.getName());

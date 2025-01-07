@@ -1,12 +1,11 @@
 package com.znsio.teswiz.runner;
 
 import io.appium.java_client.android.AndroidDriver;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import org.junit.jupiter.api.BeforeAll;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.BeforeClass;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -23,10 +22,9 @@ class BrowserStackImageInjectionTest {
     static String authenticationKey = null;
     static String cloudName = null;
 
-    @BeforeAll
-    static void getSetup() {
-        System.setProperty("LOG_DIR", LOG_DIR);
-        new File(LOG_DIR).mkdirs();
+    @BeforeClass
+    public static void setupBefore() {
+        LOGGER.info("Using LOG_DIR: " + System.getProperty("LOG_DIR"));
 
         authenticationUser = System.getenv("CLOUD_USERNAME");
         authenticationKey = System.getenv("CLOUD_KEY");
@@ -41,13 +39,13 @@ class BrowserStackImageInjectionTest {
                     new URL(String.format("https://%s:%s@hub-cloud.browserstack.com/wd/hub",
                                           authenticationUser, authenticationKey)), caps);
 
-        } catch(MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new RuntimeException(
                     String.format("Error starting Android driver: %s", e.getMessage()), e);
         }
     }
 
-//    @Test
+    //    @Test
     void toVerifyUploadURLIsGettingGenerated() {
         String imageFile = System.getProperty(
                 "user.dir") + "/src/test/resources/images/handbag.jpg";

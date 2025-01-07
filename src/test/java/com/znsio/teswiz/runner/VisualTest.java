@@ -7,8 +7,9 @@ import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.ITestContext;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,15 +17,14 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class VisualTest {
-    private static final String LOG_DIR = Runner.USER_DIRECTORY + "/target/testLogs";
+    private static final Logger LOGGER = LogManager.getLogger(VisualTest.class.getName());
     private static String pdfFileName;
     private static File pdfFile;
     private static PDDocument pdfDocument;
 
-    @BeforeAll
-    public static void setupBefore() throws IOException {
-        System.setProperty("LOG_DIR", LOG_DIR);
-        new File(LOG_DIR).mkdirs();
+    @BeforeClass
+    public static void setupBefore(ITestContext context) throws IOException {
+        LOGGER.info("Using LOG_DIR: " + System.getProperty("LOG_DIR"));
 
         pdfFileName = "src/test/resources/pdf/Teswiz.pdf";
         pdfFile = new File(pdfFileName);

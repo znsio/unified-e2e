@@ -6,9 +6,11 @@ import com.znsio.teswiz.services.UnirestService;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.json.JSONObject;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonPlaceHolderBL {
@@ -20,7 +22,7 @@ public class JsonPlaceHolderBL {
     public JsonPlaceHolderBL createPost() {
         Object jsonBody = testData.get("postBody");
         LOGGER.info("Creating a post");
-        HttpResponse<JsonNode> jsonResponse = UnirestService.postHttpRequest(base_URL,jsonBody);
+        HttpResponse<JsonNode> jsonResponse = UnirestService.postHttpRequest(base_URL, jsonBody);
         assertThat(jsonResponse.getStatus()).as("Received API status code for POST method incorrect!")
                 .isEqualTo(201);
         LOGGER.info("Verifying post is created successfully");
@@ -32,7 +34,7 @@ public class JsonPlaceHolderBL {
     public JSONObject updatePost() {
         LOGGER.info("Updating a post");
         Object jsonBody = testData.get("patchBody");
-        HttpResponse<JsonNode> jsonResponse = UnirestService.patchHttpRequest(base_URL+"/1", jsonBody);
+        HttpResponse<JsonNode> jsonResponse = UnirestService.patchHttpRequest(base_URL + "/1", jsonBody);
         assertThat(jsonResponse.getStatus()).as("Received API status code for PATCH method incorrect!")
                 .isEqualTo(200);
         return jsonResponse.getBody().getObject();
@@ -48,13 +50,13 @@ public class JsonPlaceHolderBL {
 
     public int deletePost() {
         LOGGER.info("Verifying post is deleted successfully");
-        HttpResponse<JsonNode> jsonResponse = UnirestService.deleteHttpRequest(base_URL+"/1");
+        HttpResponse<JsonNode> jsonResponse = UnirestService.deleteHttpRequest(base_URL + "/1");
         assertThat(jsonResponse.getStatus()).as("Received API status code for Delete method incorrect!")
                 .isEqualTo(200);
         return jsonResponse.getStatus();
     }
 
-    public JsonPlaceHolderBL verifyIfPostDeleted(int status){
+    public JsonPlaceHolderBL verifyIfPostDeleted(int status) {
         assertThat(status).as("Received API status code for Delete method incorrect!")
                 .isEqualTo(200);
         return this;

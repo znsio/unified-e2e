@@ -3,8 +3,8 @@ package com.znsio.teswiz.screen.android.indigo;
 import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.indigo.IndigoFlightSearchResultsScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class IndigoFlightSearchResultsScreenAndroid
         extends IndigoFlightSearchResultsScreen {

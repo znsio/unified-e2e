@@ -2,9 +2,8 @@ package com.znsio.teswiz.businessLayer.pdfValidator;
 
 import com.applitools.eyes.TestResults;
 import com.applitools.eyes.TestResultsStatus;
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
-import com.znsio.teswiz.entities.SAMPLE_TEST_CONTEXT;
 import com.znsio.teswiz.entities.TEST_CONTEXT;
 import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.screen.pdfValidator.PDFValidatorScreen;
@@ -13,8 +12,6 @@ import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 
 import java.util.Arrays;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class PDFValidatorBL {
     private static final Logger LOGGER = LogManager.getLogger(PDFValidatorBL.class.getName());

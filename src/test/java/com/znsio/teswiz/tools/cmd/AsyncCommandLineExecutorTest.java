@@ -1,11 +1,10 @@
 package com.znsio.teswiz.tools.cmd;
 
+import com.znsio.teswiz.context.TestExecutionContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import static com.znsio.teswiz.runner.Runner.NOT_SET;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,24 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AsyncCommandLineExecutorTest {
     private static final Logger LOGGER = LogManager.getLogger(AsyncCommandLineExecutorTest.class.getName());
     private static int commmandNumber = 1;
-    private static final String LOG_DIR = "./target/testLogs";
 
-    @BeforeAll
+    @BeforeClass
     public static void setupBefore() {
-        LOGGER.info("Create LOG_DIR: " + LOG_DIR);
-        System.setProperty("LOG_DIR", LOG_DIR);
-        new File(LOG_DIR).mkdirs();
-    }
-
-    @Test
-    void asyncCLICalculatorTest() {
-        try {
-            AsyncCommandLineExecutor executor = new AsyncCommandLineExecutor();
-            calculatorTest(executor);
-            executor.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        LOGGER.info("Using LOG_DIR: " + System.getProperty("LOG_DIR"));
     }
 
     private static String sendCommand(AsyncCommandLineExecutor executor, String command, int timeoutInSeconds) {
@@ -127,5 +112,17 @@ class AsyncCommandLineExecutorTest {
                 Exiting the calculator. Goodbye!""";
         response = sendCommand(executor, command, timeoutInSeconds);
         assertThat(response).as("Output of command: '" + command + "' is incorrect").isEqualTo(expectedResponse);
+    }
+
+    @Test
+    public void asyncCLICalculatorTest() {
+        try {
+            new TestExecutionContext("asyncCLICalculatorTest");
+            AsyncCommandLineExecutor executor = new AsyncCommandLineExecutor();
+            calculatorTest(executor);
+            executor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

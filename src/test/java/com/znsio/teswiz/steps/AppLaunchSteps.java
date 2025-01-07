@@ -1,15 +1,15 @@
 package com.znsio.teswiz.steps;
 
-import com.context.SessionContext;
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.SessionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.entities.TEST_CONTEXT;
 import com.znsio.teswiz.runner.Drivers;
 import com.znsio.teswiz.runner.Runner;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.Locale;
@@ -27,7 +27,7 @@ public class AppLaunchSteps {
     public void startOn(String userPersona, String appName) {
         String[] appNameParts = appName.split("-");
         appName = appNameParts[0].toLowerCase(Locale.ROOT) + "_" + Runner.getCloudName()
-                                                                           .toLowerCase();
+                .toLowerCase();
         String onPlatform = appNameParts[appNameParts.length - 1].toLowerCase(Locale.ROOT);
         LOGGER.info(System.out.printf("startOn - Persona:'%s', AppName: '%s', Platform: '%s'",
                                       userPersona, appName, onPlatform));
@@ -60,7 +60,7 @@ public class AppLaunchSteps {
      */
     private String evaluateBrowserType(String browserName) {
         String[] details = browserName.split("-");
-        if(details.length == 1) {
+        if (details.length == 1) {
             //when user passes values like 'chrome', 'firefox', etc
             return browserName;
         }

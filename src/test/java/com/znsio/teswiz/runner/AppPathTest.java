@@ -1,8 +1,11 @@
 package com.znsio.teswiz.runner;
 
 import com.znsio.teswiz.exceptions.InvalidTestDataException;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.assertj.core.api.Assertions;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,50 +13,60 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class AppPathTest {
-    private static final String LOG_DIR = "./target/testLogs";
+
+    private static final Logger LOGGER = LogManager.getLogger(AppPathTest.class.getName());
     private static final String directoryPath = System.getProperty("user.dir") + File.separator + "temp" + File.separator + "unitTests" + File.separator + "sampleApps";
     private static final String fileName = "VodQA.apk";
     private static final String expectedAppPath = directoryPath + File.separator + fileName;
+    private static final String appPathAsCorrectFilePath = expectedAppPath;
     private static final String appPathAsCorrectUrl = "https://github.com/anandbagmar/sampleAppsForNativeMobileAutomation/raw/main/VodQA.apk";
     private static final String appPathAsIncorrectUrl = "https://github.com/anandbagmar/sampleAppsForNativeMobileAutomation/ra/main/VodQA.apk";
-    private static final String appPathAsCorrectFilePath = expectedAppPath;
     private static final String appPathAsIncorrectFilePath = System.getProperty("user.dir") + File.separator + "temp" + File.separator + "unitTests" + File.separator + "smleApps" + File.separator + fileName;
 
-    @BeforeAll
+    @BeforeClass
     public static void setupBefore() {
-        System.setProperty("LOG_DIR", LOG_DIR);
-        new File(LOG_DIR).mkdirs();
+        LOGGER.info("Using LOG_DIR: " + System.getProperty("LOG_DIR"));
     }
 
     @Test
     void givenIncorrectUrl_WhenDirectoryAndFileDoNotExist_ThenIOExceptionOccurWhileTryingToDownloadFile() {
         deleteDirectoryUsedForUnitTests();
-        assertThrows(InvalidTestDataException.class, () -> DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectUrl, directoryPath));
+        Assertions.assertThatThrownBy(() -> {
+                    DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectUrl, directoryPath);
+                })
+                .isInstanceOf(InvalidTestDataException.class) // Verify exception type
+                .hasMessage("URL is not accessible: " + appPathAsIncorrectUrl);
     }
 
     @Test
     void givenIncorrectUrl_WhenDirectoryExistAndFileDoNotExist_ThenIOExceptionOccurWhileTryingToDownloadFile() {
         createDirectoryUsedForUnitTests();
         deleteFile(appPathAsCorrectFilePath);
-        assertThrows(InvalidTestDataException.class, () -> DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectUrl, directoryPath));
+        Assertions.assertThatThrownBy(() -> {
+                    DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectUrl, directoryPath);
+                })
+                .isInstanceOf(InvalidTestDataException.class)
+                .hasMessage("URL is not accessible: " + appPathAsIncorrectUrl);
     }
 
     @Test
     void givenIncorrectUrl_WhenDirectoryAndFileBothExist_ThenFileIsReadable() {
         createDirectoryUsedForUnitTests();
         DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectUrl, directoryPath);
-        assertThrows(InvalidTestDataException.class, () -> DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectUrl, directoryPath));
+        Assertions.assertThatThrownBy(() -> {
+                    DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectUrl, directoryPath);
+                })
+                .isInstanceOf(InvalidTestDataException.class)
+                .hasMessage("URL is not accessible: " + appPathAsIncorrectUrl);
     }
 
     @Test
     void givenCorrectUrl_WhenDirectoryAndFileDoNotExist_ThenCreateDirectoryAndDownloadFile() {
         deleteDirectoryUsedForUnitTests();
         String actualAppPath = DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectUrl, directoryPath);
-        assertEquals(expectedAppPath, actualAppPath);
-        assertTrue(new File(actualAppPath).canRead());
+        Assertions.assertThat(expectedAppPath).isEqualTo(actualAppPath);
+        Assertions.assertThat(new File(actualAppPath).canRead()).isTrue();
     }
 
     @Test
@@ -61,50 +74,70 @@ public class AppPathTest {
         createDirectoryUsedForUnitTests();
         deleteFile(appPathAsCorrectFilePath);
         String actualAppPath = DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectUrl, directoryPath);
-        assertEquals(expectedAppPath, actualAppPath);
-        assertTrue(new File(actualAppPath).canRead());
+        Assertions.assertThat(expectedAppPath).isEqualTo(actualAppPath);
+        Assertions.assertThat(new File(actualAppPath).canRead()).isTrue();
     }
 
     @Test
     void givenCorrectUrl_WhenDirectoryAndFileAlreadyExist_ThenDoNotDownloadFile() {
         createDirectoryUsedForUnitTests();
         DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectUrl, directoryPath);
-        assertTrue(new File(expectedAppPath).canRead());
+        Assertions.assertThat(new File(expectedAppPath).canRead()).isTrue();
         String actualAppPath = DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectUrl, directoryPath);
-        assertTrue(new File(actualAppPath).canRead());
-        assertEquals(expectedAppPath, actualAppPath);
+        Assertions.assertThat(new File(actualAppPath).canRead()).isTrue();
+        Assertions.assertThat(expectedAppPath).isEqualTo(actualAppPath);
     }
 
     @Test
     void givenIncorrectFilePath_WhenDirectoryAndFileDoNotExist_ThenFileIsNotReadable() {
         deleteDirectoryUsedForUnitTests();
-        assertThrows(InvalidTestDataException.class, () -> DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectFilePath, directoryPath));
+        Assertions.assertThatThrownBy(() -> {
+                    DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectFilePath, directoryPath);
+                })
+                .isInstanceOf(InvalidTestDataException.class)
+                .hasMessage(String.format("App file path '%s' provided in capabilities is incorrect", appPathAsIncorrectFilePath));
     }
 
     @Test
     void givenIncorrectFilePath_WhenDirectoryExistButFileDoNotExist_ThenFileIsNotReadable() {
         createDirectoryUsedForUnitTests();
         deleteFile(appPathAsCorrectFilePath);
-        assertThrows(InvalidTestDataException.class, () -> DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectFilePath, directoryPath));
+        Assertions.assertThatThrownBy(() -> {
+                    DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectFilePath, directoryPath);
+                })
+                .isInstanceOf(InvalidTestDataException.class)
+                .hasMessage(String.format("App file path '%s' provided in capabilities is incorrect", appPathAsIncorrectFilePath));
     }
 
     @Test
     void givenIncorrectFilePath_WhenDirectoryAndFileExist_ThenFileIsNotReadable() {
         createDirectoryUsedForUnitTests();
-        assertThrows(InvalidTestDataException.class, () -> DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectFilePath, directoryPath));
+        Assertions.assertThatThrownBy(() -> {
+                    DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsIncorrectFilePath, directoryPath);
+                })
+                .isInstanceOf(InvalidTestDataException.class)
+                .hasMessage(String.format("App file path '%s' provided in capabilities is incorrect", appPathAsIncorrectFilePath));
     }
 
     @Test
     void givenCorrectFilePath_WhenDirectoryAndFileDoNotExist_ThenFileIsNotReadable() {
         deleteDirectoryUsedForUnitTests();
-        assertThrows(RuntimeException.class, () -> DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectFilePath, directoryPath));
+        Assertions.assertThatThrownBy(() -> {
+                    DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectFilePath, directoryPath);
+                })
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage(String.format("App file path '%s' provided in capabilities is incorrect", appPathAsCorrectFilePath));
     }
 
     @Test
     void givenCorrectFilePath_WhenDirectoryExistButFileDoNotExist_ThenFileIsNotReadable() {
         createDirectoryUsedForUnitTests();
         deleteFile(appPathAsCorrectFilePath);
-        assertThrows(RuntimeException.class, () -> DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectFilePath, directoryPath));
+        Assertions.assertThatThrownBy(() -> {
+                    DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectFilePath, directoryPath);
+                })
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage(String.format("App file path '%s' provided in capabilities is incorrect", appPathAsCorrectFilePath));
     }
 
     @Test
@@ -112,8 +145,8 @@ public class AppPathTest {
         createDirectoryUsedForUnitTests();
         DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectUrl, directoryPath);
         String actualAppPath = DeviceSetup.downloadAppToDirectoryIfNeeded(appPathAsCorrectFilePath, directoryPath);
-        assertTrue(new File(actualAppPath).canRead());
-        assertEquals(expectedAppPath, actualAppPath);
+        Assertions.assertThat(new File(actualAppPath).canRead()).isTrue();
+        Assertions.assertThat(expectedAppPath).isEqualTo(actualAppPath);
     }
 
     private void deleteFile(String filePath) {

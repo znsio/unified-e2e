@@ -1,19 +1,17 @@
 package com.znsio.teswiz.screen.ajio;
 
 import com.znsio.teswiz.entities.Platform;
+import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Drivers;
 import com.znsio.teswiz.runner.Runner;
-import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.android.ajio.HomeScreenAndroid;
 import com.znsio.teswiz.screen.ios.ajio.HomeScreenIOS;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
-
-import static com.znsio.teswiz.entities.Platform.iOS;
 
 public abstract class HomeScreen {
     private static final String SCREEN_NAME = HomeScreen.class.getSimpleName();

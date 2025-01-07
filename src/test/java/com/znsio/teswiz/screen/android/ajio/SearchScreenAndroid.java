@@ -4,8 +4,8 @@ import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.ajio.ProductScreen;
 import com.znsio.teswiz.screen.ajio.SearchScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -50,8 +50,9 @@ public class SearchScreenAndroid
     @Override
     public boolean isProductListLoaded(String product) {
         LOGGER.info(String.format("Verifying if %s list is loaded", product));
-        if (!(driver.isElementPresent(byProductListTitleId)))
+        if (!(driver.isElementPresent(byProductListTitleId))) {
             driver.tapOnMiddleOfScreen();
+        }
         String productLoaded = driver.waitTillElementIsVisible(byProductListTitleId).getText().trim();
         LOGGER.info("Loaded product: " + productLoaded);
         return productLoaded.contains(product);

@@ -1,26 +1,27 @@
 package com.znsio.teswiz.runner;
 
 import com.znsio.teswiz.entities.APPLITOOLS;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-import java.io.File;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SetupTest {
-    private static final String LOG_DIR = "./target/testLogs";
+    private static final Logger LOGGER = LogManager.getLogger(SetupTest.class.getName());
+
     private static final String configFilePath = "./configs/ajio/ajio_local_android_config.properties";
 
-    @BeforeAll
+    @BeforeClass
     public static void setupBefore() {
-        System.setProperty("LOG_DIR", LOG_DIR);
-        new File(LOG_DIR).mkdirs();
+        LOGGER.info("Using LOG_DIR: " + System.getProperty("LOG_DIR"));
     }
 
-    @BeforeEach
+    @BeforeMethod
     public void beforeMethod() {
         System.clearProperty(APPLITOOLS.PROXY_KEY);
         System.clearProperty(APPLITOOLS.PROXY_URL);

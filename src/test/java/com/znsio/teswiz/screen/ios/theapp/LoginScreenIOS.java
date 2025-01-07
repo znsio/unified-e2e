@@ -14,10 +14,10 @@ import static com.znsio.teswiz.tools.Wait.waitFor;
 
 public class LoginScreenIOS
         extends LoginScreen {
-    private final Driver driver;
-    private final Visual visually;
     private static final String SCREEN_NAME = LoginScreenIOS.class.getSimpleName();
     private static final Logger LOGGER = LogManager.getLogger(SCREEN_NAME);
+    private final Driver driver;
+    private final Visual visually;
     private final By byUserNameXpath = AppiumBy.xpath("(//XCUIElementTypeOther[@name=\"username\"])[2]");
     private final By byPasswordXpath = AppiumBy.xpath("(//XCUIElementTypeOther[@name=\"password\"])[2]");
     private final By byOKButtonXpath = AppiumBy.xpath("(//*[@name=\"OK\"])");

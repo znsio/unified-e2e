@@ -6,8 +6,8 @@ import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.jiomeet.InAMeetingScreen;
 import com.znsio.teswiz.screen.jiomeet.LandingScreen;
 import com.znsio.teswiz.screen.jiomeet.SignInScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -64,7 +64,7 @@ public class SignInScreenWeb
 
     @Override
     public InAMeetingScreen joinAMeeting(String meetingId, String meetingPassword,
-                                         String currentUserPersona) {
+            String currentUserPersona) {
         WebElement joinMeetingElement = driver.waitTillElementIsPresent(byJoinMeetingButtonId);
         visually.checkWindow(SCREEN_NAME, "Landing screen");
         joinMeetingElement.click();
@@ -82,12 +82,12 @@ public class SignInScreenWeb
         enterNameElement.sendKeys(currentUserPersona);
 
         visually.check(SCREEN_NAME, "After entering meeting details",
-                Target.window().strict().layout(byEnterPasswordId).layout(byNameId));
+                       Target.window().strict().layout(byEnterPasswordId).layout(byNameId));
 
         visually.takeScreenshot(SCREEN_NAME, "Before clicking on Join button");
         ((JavascriptExecutor) driver.getInnerDriver()).executeScript("arguments[0].click()",
-                driver.waitForClickabilityOf(
-                        byJoinMeetingButtonXpath));
+                                                                     driver.waitForClickabilityOf(
+                                                                             byJoinMeetingButtonXpath));
 
         return this.waitForInAMeetingScreenToLoad();
     }

@@ -8,8 +8,8 @@ import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.android.ajio.SearchScreenAndroid;
 import com.znsio.teswiz.screen.ios.ajio.SearchScreenIOS;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class SearchScreen {
     private static final String SCREEN_NAME = SearchScreen.class.getSimpleName();

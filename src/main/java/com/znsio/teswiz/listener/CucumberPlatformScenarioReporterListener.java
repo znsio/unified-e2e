@@ -17,7 +17,7 @@ public class CucumberPlatformScenarioReporterListener
     public static String launchUUID;
 
     public CucumberPlatformScenarioReporterListener() {
-        LOGGER.info("CucumberScenarioReporterListener");
+        LOGGER.info("CucumberPlatformScenarioReporterListener");
     }
 
     @Override

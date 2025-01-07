@@ -20,7 +20,7 @@ public abstract class DuckDuckGoScreen {
         LOGGER.info(SCREEN_NAME + ": Driver type: " + driver.getType() + ": Platform: " + platform);
         Visual visually = Drivers.getVisualDriverForCurrentUser(Thread.currentThread().getId());
 
-        switch(platform) {
+        switch (platform) {
             case android:
                 return new DuckDuckGoScreenAndroid(driver, visually);
         }

@@ -6,8 +6,8 @@ import com.znsio.teswiz.screen.indigo.IndigoFlightSearchResultsScreen;
 import com.znsio.teswiz.screen.indigo.IndigoGiftVouchersScreen;
 import com.znsio.teswiz.screen.indigo.IndigoHomeScreen;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

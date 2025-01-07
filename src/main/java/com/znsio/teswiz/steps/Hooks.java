@@ -1,6 +1,6 @@
 package com.znsio.teswiz.steps;
 
-import com.context.TestExecutionContext;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.entities.Platform;
 import com.znsio.teswiz.entities.TEST_CONTEXT;
 import com.znsio.teswiz.runner.Drivers;
@@ -67,7 +67,6 @@ public class Hooks {
     private void startTheAsyncCommandLineExecutor() {
         if (Runner.isCLI()) {
             LOGGER.info("Start the AsyncCommandLineExecutor");
-            testExecutionContext.addTestState(TEST_CONTEXT.CLI_COMMAND_NUMBER, 1);
             AsyncCommandLineExecutor asyncCommandLineExecutor = new AsyncCommandLineExecutor();
             testExecutionContext.addTestState(TEST_CONTEXT.ASYNC_COMMAND_LINE_EXECUTOR, asyncCommandLineExecutor);
         }

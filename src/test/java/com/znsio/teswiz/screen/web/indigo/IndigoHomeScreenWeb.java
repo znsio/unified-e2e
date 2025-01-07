@@ -1,14 +1,14 @@
 package com.znsio.teswiz.screen.web.indigo;
 
-import com.context.TestExecutionContext;
-import com.znsio.teswiz.runner.Runner;
+import com.znsio.teswiz.context.TestExecutionContext;
 import com.znsio.teswiz.runner.Driver;
+import com.znsio.teswiz.runner.Runner;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.indigo.IndigoFlightSearchResultsScreen;
 import com.znsio.teswiz.screen.indigo.IndigoGiftVouchersScreen;
 import com.znsio.teswiz.screen.indigo.IndigoHomeScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -62,7 +62,7 @@ public class IndigoHomeScreenWeb
         long threadId = Thread.currentThread().getId();
         context = Runner.getTestExecutionContext(threadId);
         waitFor(2);
-        if(driver.isElementPresent(byCloseAcceptCookiesXpath)) {
+        if (driver.isElementPresent(byCloseAcceptCookiesXpath)) {
             driver.findElement(byCloseAcceptCookiesXpath).click();
         }
     }
@@ -94,15 +94,15 @@ public class IndigoHomeScreenWeb
     public IndigoHomeScreen selectNumberOfAdultPassengers(int numberOfAdultsToSelect) {
         driver.waitForClickabilityOf(bySelectedNumberOfPassengersXpath).click();
         visually.checkWindow(SCREEN_NAME, "Pre-selected number of passengers");
-        if(driver.isElementPresent(byCloseExtraSeatTooltipXpath)) {
+        if (driver.isElementPresent(byCloseExtraSeatTooltipXpath)) {
             driver.findElement(byCloseExtraSeatTooltipXpath).click();
         }
         int numberOfAdultsSelected = getNumberOfAdultsSelected();
         LOGGER.info("numberOfAdultsSelected: " + numberOfAdultsSelected);
-        if(numberOfAdultsToSelect == numberOfAdultsSelected) {
+        if (numberOfAdultsToSelect == numberOfAdultsSelected) {
             LOGGER.info(
                     "Number of adults selected is already as expected: " + numberOfAdultsToSelect);
-        } else if(numberOfAdultsToSelect < numberOfAdultsSelected) {
+        } else if (numberOfAdultsToSelect < numberOfAdultsSelected) {
             decrementAdultPassengerSelection(numberOfAdultsToSelect, numberOfAdultsSelected);
         } else {
             incrementAdultPassengerSelection(numberOfAdultsToSelect, numberOfAdultsSelected);
@@ -117,8 +117,8 @@ public class IndigoHomeScreenWeb
     }
 
     private IndigoHomeScreenWeb decrementAdultPassengerSelection(int numberOfAdultsToSelect,
-                                                                 int numberOfAdultsSelected) {
-        while(numberOfAdultsToSelect < numberOfAdultsSelected && numberOfAdultsSelected != 1) {
+            int numberOfAdultsSelected) {
+        while (numberOfAdultsToSelect < numberOfAdultsSelected && numberOfAdultsSelected != 1) {
             LOGGER.info("Decreasing adult passenger selected count");
             driver.findElement(byDecreaseAdultPassengerCountXpath).click();
             numberOfAdultsSelected--;
@@ -127,8 +127,8 @@ public class IndigoHomeScreenWeb
     }
 
     private IndigoHomeScreenWeb incrementAdultPassengerSelection(int numberOfAdultsToSelect,
-                                                                 int numberOfAdultsSelected) {
-        while(numberOfAdultsToSelect > numberOfAdultsSelected) {
+            int numberOfAdultsSelected) {
+        while (numberOfAdultsToSelect > numberOfAdultsSelected) {
             LOGGER.info("Increasing adult passenger selected count");
             driver.findElement(byIncreaseAdultPassengerCountXpath).click();
             numberOfAdultsSelected++;

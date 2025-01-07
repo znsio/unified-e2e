@@ -3,8 +3,8 @@ package com.znsio.teswiz.screen.android.dineout;
 import com.znsio.teswiz.runner.Driver;
 import com.znsio.teswiz.runner.Visual;
 import com.znsio.teswiz.screen.dineout.DineoutLandingScreen;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -28,7 +28,7 @@ public class DineoutLandingScreenAndroid
         driver.waitTillElementIsPresent(By.id("com.dineout.book:id/skip_tv")).click();
         driver.waitTillElementIsPresent(By.id("com.dineout.book:id/manual_location_txt")).click();
         driver.waitTillElementIsPresent(By.id("com.dineout.book:id/et_search_location"))
-              .sendKeys("Mumbai");
+                .sendKeys("Mumbai");
         driver.waitTillElementIsPresent(
                 By.id("com.dineout.book:id/textView_search_location_header")).click();
 
@@ -44,15 +44,15 @@ public class DineoutLandingScreenAndroid
                                                     "(@resource-id='com.dineout" +
                                                     ".book:id/half_interstitial_image')]"),
                                             10).click();
-        } catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             LOGGER.info("Did not get any popup banner");
         }
 
         try {
             // update location, if exists
             driver.waitTillElementIsPresent(By.id("com.dineout.book:id/txt_update_now_cta"), 5)
-                  .click();
-        } catch(NoSuchElementException e) {
+                    .click();
+        } catch (NoSuchElementException e) {
             LOGGER.info("Did not get update location CTA");
         }
         return this;
@@ -62,10 +62,10 @@ public class DineoutLandingScreenAndroid
     public DineoutLandingScreen selectCity(String city) {
         driver.waitTillElementIsPresent(By.id("com.dineout.book:id/search_text")).click();
         driver.waitTillElementIsPresent(By.id("com.dineout.book:id/tv_rest_suggestions"))
-              .sendKeys("Mumbai");
+                .sendKeys("Mumbai");
         // select the region
         driver.waitTillElementIsPresent(By.xpath("//android.widget.TextView[@text='Location']"))
-              .click();
+                .click();
 
         // select first from the list
         driver.waitTillElementIsPresent(By.id("com.dineout.book:id/suggestion_layout")).click();
@@ -81,9 +81,9 @@ public class DineoutLandingScreenAndroid
         suggestionsElement.sendKeys(cuisine);
         suggestionsElement.click();
         driver.waitTillElementIsPresent(By.xpath("//android.widget.TextView[@text='Cuisine']"))
-              .click();
+                .click();
         driver.waitTillElementIsPresent(By.id("com.dineout.book:id/selected_state_container"))
-              .click();
+                .click();
         return this;
     }
 }
